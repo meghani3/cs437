@@ -1,0 +1,6 @@
+wheel base = 0.1m
+theta = 30deg
+turn radius = 0.2m
+speed = 0.28m/s
+
+time to cover 98cm = 3.55s
