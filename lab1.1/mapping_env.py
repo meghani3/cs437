@@ -81,7 +81,6 @@ finally:
     # Apply gaussian image to clean up
 
     weights = [[0.5, 0.5, 0.5], [0.5, 1, 0.5], [0.5, 0.5, 0.5]]
-    
     grid = ndimage.convolve(grid, weights, mode='reflect')
     # grid = grid[grid > 2]
 

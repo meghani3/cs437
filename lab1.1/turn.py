@@ -71,10 +71,7 @@ if __name__ == "__main__":
         for i in range(4):
             time_to_run = .92
 
-            gently_turn(px, -30)                
-            gently_move_forward(px, time_to_run)
-            gently_turn(px, 30)
-            gently_move_backward(px, time_to_run)
+            
 
             time.sleep(1)
         
