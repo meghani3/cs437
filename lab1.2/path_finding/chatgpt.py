@@ -3,17 +3,20 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import shortest_path
 
 # Define a 5x5 grid with weighted connections (0 = obstacle, >0 = cost)
-grid = np.array([
-    [1, 1, 1, 1, 1],
-    [1, 0, 1, 0, 1],  # 0 represents an obstacle (cannot be traversed)
-    [1, 1, 1, 1, 1],
-    [1, 0, 1, 0, 1],
-    [1, 1, 1, 1, 1]
-])
+grid = np.array(
+    [
+        [1, 1, 1, 1, 1],
+        [1, 0, 1, 0, 1],  # 0 represents an obstacle (cannot be traversed)
+        [1, 1, 1, 1, 1],
+        [1, 0, 1, 0, 1],
+        [1, 1, 1, 1, 1],
+    ]
+)
 
 # Define start and goal positions
 start = (0, 0)
 goal = (4, 4)
+
 
 def a_star(grid, start, goal):
 
@@ -22,7 +25,9 @@ def a_star(grid, start, goal):
     # Convert grid to graph (adjacency matrix)
     def grid_to_graph(grid):
         nodes = rows * cols
-        graph = np.full((nodes, nodes), np.inf)  # Initialize adjacency matrix with infinite cost
+        graph = np.full(
+            (nodes, nodes), np.inf
+        )  # Initialize adjacency matrix with infinite cost
 
         def node_index(r, c):
             return r * cols + c  # Convert (row, col) to node index
@@ -41,7 +46,9 @@ def a_star(grid, start, goal):
                         neighbor_index = node_index(nr, nc)
                         graph[index, neighbor_index] = grid[nr, nc]  # Use weight
 
-        return csr_matrix(graph)  # Convert to compressed sparse row format for efficiency
+        return csr_matrix(
+            graph
+        )  # Convert to compressed sparse row format for efficiency
 
     graph = grid_to_graph(grid)
 
@@ -49,7 +56,9 @@ def a_star(grid, start, goal):
     goal_index = goal[0] * cols + goal[1]
 
     # Compute shortest path
-    dist_matrix, predecessors = shortest_path(graph, directed=False, return_predecessors=True)
+    dist_matrix, predecessors = shortest_path(
+        graph, directed=False, return_predecessors=True
+    )
 
     # Reconstruct path from predecessors
     def reconstruct_path(predecessors, start, goal):
@@ -67,11 +76,9 @@ def a_star(grid, start, goal):
 
     # Convert path indices back to grid coordinates
     if path:
-        path_coords = [(p // cols, p % cols) for p in path]
+        path_coords = [np.array([p // cols, p % cols], dtype=int) for p in path]
         print("Shortest Path:", path_coords)
         return path_coords
     else:
         print("No path found!")
         return []
-
-
